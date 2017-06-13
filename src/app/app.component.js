@@ -25,7 +25,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "<h1>{{title}}</h1><h2>{{hero.name}} details!</h2>\n             <div><label>id: {{hero.id}}</label></div>\n             <div><label>name: {{hero.name}}</label></div>\n            "
+        template: "<h1>{{title}}</h1><h2>{{hero.name}} details!</h2>\n             <div><label>id: {{hero.id}}</label></div>\n             <div>\n               <label>name: </label>\n               <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n             </div>\n            "
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
