@@ -10,9 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var hero_1 = require("./hero");
+var router_1 = require("@angular/router");
+require("rxjs/add/operator/switchMap");
+var hero_service_1 = require("./hero.service");
 var HeroDetailComponent = (function () {
-    function HeroDetailComponent() {
+    function HeroDetailComponent(heroService, route, location) {
+        this.heroService = heroService;
+        this.route = route;
+        this.location = location;
     }
+    HeroDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.paramMap
+            .switchMap(function (params) { return _this.heroService.getHero(+params.get('id')); })
+            .subscribe(function (hero) { return _this.hero = hero; });
+    };
     return HeroDetailComponent;
 }());
 __decorate([
@@ -22,8 +34,11 @@ __decorate([
 HeroDetailComponent = __decorate([
     core_1.Component({
         selector: 'hero-detail',
-        template: "\n    <div *ngIf=\"hero\">\n      <h2>{{hero.name}} details!</h2>\n      <div><label>id: </label>{{hero.id}}</div>\n      <div>\n        <label>name: </label>\n        <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n      </div>\n    </div>\n  "
-    })
+        template: "\n    <div *ngIf=\"hero\">\n      <h2>{{hero.name}} details!</h2>\n      <div>\n        <label>id: </label>{{hero.id}}\n      </div>\n      <div>\n        <label>name: </label>\n        <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n      </div>\n    </div>\n  "
+    }),
+    __metadata("design:paramtypes", [hero_service_1.HeroService,
+        router_1.ActivatedRoute,
+        Location])
 ], HeroDetailComponent);
 exports.HeroDetailComponent = HeroDetailComponent;
 //# sourceMappingURL=hero-detail.component.js.map
