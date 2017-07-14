@@ -12,6 +12,13 @@ private heroesUrl = 'api/heroes';  // URL to web api
 
   constructor(private http: Http) { }
 
+  getHeroes(): Promise<Hero[]> {
+    return this.http.get(this.heroesUrl)
+      .toPromise()
+      .then(res => res.json().data as Hero[])
+      .catch(this.handleError);
+  }
+
   getHero(id: number): Promise<Hero> {
     const url = `${this.heroesUrl}/${id}`;
     return this.http.get(url)
@@ -34,4 +41,11 @@ private heroesUrl = 'api/heroes';  // URL to web api
     return Promise.reject(error.message || error);
   }
 
+  create(name: string): Promise<Hero> {
+    return this.http
+      .post(this.heroesUrl, JSON.stringify({name: name}), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json().data as Hero)
+      .catch(this.handleError);
+  }
 }

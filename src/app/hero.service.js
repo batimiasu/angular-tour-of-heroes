@@ -17,6 +17,12 @@ var HeroService = (function () {
         this.heroesUrl = 'api/heroes'; // URL to web api
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
+    HeroService.prototype.getHeroes = function () {
+        return this.http.get(this.heroesUrl)
+            .toPromise()
+            .then(function (res) { return res.json().data; })
+            .catch(this.handleError);
+    };
     HeroService.prototype.getHero = function (id) {
         var url = this.heroesUrl + "/" + id;
         return this.http.get(url)
@@ -35,6 +41,13 @@ var HeroService = (function () {
     HeroService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
+    };
+    HeroService.prototype.create = function (name) {
+        return this.http
+            .post(this.heroesUrl, JSON.stringify({ name: name }), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json().data; })
+            .catch(this.handleError);
     };
     return HeroService;
 }());
