@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'my-heroes',
@@ -53,4 +54,5 @@ export class HeroesComponent implements OnInit {
         }
       });
   }
+
 }
